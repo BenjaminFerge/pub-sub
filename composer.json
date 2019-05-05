@@ -10,7 +10,9 @@
         }
     ],
     "require": {
-        "php-amqplib/php-amqplib": "^2.9"
+        "php-amqplib/php-amqplib": "^2.9",
+        "react/socket": "^1.2",
+        "ramsey/uuid": "^3.8"
     },
     "autoload": {
         "psr-4": {
