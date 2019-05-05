@@ -1,0 +1,20 @@
+{
+    "name": "benjaminferge/pub-sub",
+    "description": "Pub/Sub implementation.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Benjámin J. Ferge",
+            "email": "benjamin.ferge17@gmail.com"
+        }
+    ],
+    "require": {
+        "php-amqplib/php-amqplib": "^2.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "PubSub\\": "src/"
+        }
+    }
+}
