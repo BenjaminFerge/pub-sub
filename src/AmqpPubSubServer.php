@@ -3,7 +3,6 @@
 namespace PubSub;
 
 use PhpAmqpLib\Connection\AMQPStreamConnection;
-use PhpAmqpLib\Message\AMQPMessage;
 
 class AmqpPubSubServer implements PubSubServer
 {
@@ -29,29 +28,8 @@ class AmqpPubSubServer implements PubSubServer
     {
         list($queueId, ,) = $this->channel->queue_declare("", false, false, true, false);
         $this->channel->queue_bind($queueId, $this->exchange, $topic);
-        $this->channel->basic_qos(null, 1, null);
-        $this->channel->basic_consume($queueId, "", false, false, false, false, function($req) use ($callback) {
-            $result = $callback($req);
-            $this->callback($result, $req);
-        });
+        $this->channel->basic_consume($queueId, "", false, true, false, false, $callback);
         return $queueId;
-    }
-
-    public function callback($result, $req)
-    {
-        $msg = new AMQPMessage(
-            (string) $result,
-            array('correlation_id' => $req->get('correlation_id'))
-        );
-    
-        $req->delivery_info['channel']->basic_publish(
-            $msg,
-            '',
-            $req->get('reply_to')
-        );
-        $req->delivery_info['channel']->basic_ack(
-            $req->delivery_info['delivery_tag']
-        );
     }
     
     public function unsubscribe($queueId, string $topic)
