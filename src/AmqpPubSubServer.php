@@ -4,12 +4,11 @@ namespace PubSub;
 
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 
-class AmqpPubSubServer implements PubSubServer
+class AmqpPubSubServer extends PubSubServer
 {
     private $channel;
     private $connection;
     private $exchange;
-    use ServerEvents;
 
     public function __construct($exchange, $addr = "localhost", $port = 5672, $user = "guest", $pwd = "guest")
     {

@@ -2,7 +2,7 @@
 
 namespace PubSub;
 
-class TcpPubSubClient implements PubSubClient
+class TcpPubSubClient extends PubSubClient
 {
     private $addr;
     private $port;

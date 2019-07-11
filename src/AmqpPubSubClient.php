@@ -5,7 +5,7 @@ namespace PubSub;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
-class AmqpPubSubClient implements PubSubClient
+class AmqpPubSubClient extends PubSubClient
 {
     private $connection;
     private $channel;

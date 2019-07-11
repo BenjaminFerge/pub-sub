@@ -7,10 +7,8 @@ use React\Socket\Server;
 use Ramsey\Uuid\Uuid;
 use React\Socket\ConnectionInterface;
 
-class TcpPubSubServer implements PubSubServer
+class TcpPubSubServer extends PubSubServer
 {
-    use ServerEvents;
-
     private $queues = [];
     private $loop;
     private $socket;

@@ -2,10 +2,7 @@
 
 namespace PubSub;
 
-use PhpAmqpLib\Connection\AMQPStreamConnection;
-use PhpAmqpLib\Message\AMQPMessage;
-
-interface PubSubClient
+abstract class PubSubClient
 {
-    public function publish(string $topic, string $data);
+    abstract public function publish(string $topic, string $data);
 }
