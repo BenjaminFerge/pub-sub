@@ -9,6 +9,7 @@ class AmqpPubSubServer implements PubSubServer
     private $channel;
     private $connection;
     private $exchange;
+    use ServerEvents;
 
     public function __construct($exchange, $addr = "localhost", $port = 5672, $user = "guest", $pwd = "guest")
     {
@@ -39,9 +40,16 @@ class AmqpPubSubServer implements PubSubServer
 
     public function start()
     {
+        $this->handleEvent('start');
         while (count($this->channel->callbacks)) {
             $this->channel->wait();
         }
+        $this->__destruct();
+    }
+
+    public function stop()
+    {
+        $this->handleEvent('stop');
         $this->__destruct();
     }
 }

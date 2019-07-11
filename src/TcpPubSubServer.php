@@ -9,6 +9,8 @@ use React\Socket\ConnectionInterface;
 
 class TcpPubSubServer implements PubSubServer
 {
+    use ServerEvents;
+
     private $queues = [];
     private $loop;
     private $socket;
@@ -35,8 +37,16 @@ class TcpPubSubServer implements PubSubServer
         unset($this->queues[$queueId][$topic]);
     }
 
+    public function stop()
+    {
+        $this->handleEvent('stop');
+        $this->loop->stop();
+    }
+
+
     public function start()
     {
+        $this->handleEvent('start');
         $this->socket->on('connection', function (ConnectionInterface $conn) {
             $conn->on('data', function ($data) use ($conn) {
                 $msg = TcpPubSubMessage::fromJson($data);
